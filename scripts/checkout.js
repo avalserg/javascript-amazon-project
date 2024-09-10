@@ -6,14 +6,21 @@ import { loadProducts, loadProductsFetch } from "../data/products.js";
 import { loadCart } from "../data/cart.js";
 
 async function loadPage() {
-    
-     await loadProductsFetch();
-    
-    const value = await new Promise((resolve) => {
-        loadCart(() => {
-            resolve('value 3');
+    try {
+        // throw 'errror';
+        await loadProductsFetch();
+        const value = await new Promise((resolve, reject) => {
+            // throw 'error 2';
+            loadCart(() => {
+                // reject('error3 ');
+                resolve('value 3');
+            });
         });
-    });
+    } catch (error) {
+        console.log('Error unexpected from load page');
+        
+    }
+    
      renderOrderSummary();
      renderPaymentSummary();
 
